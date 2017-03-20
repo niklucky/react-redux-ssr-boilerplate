@@ -1,0 +1,36 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+}
+
+.background {
+  z-index: 0;
+  position: fixed;
+  top: -20px;
+  left: -20px;
+  right: 0;
+  bottom: 0;
+  width: 110%;
+  height: 110%;
+//  background: white url(../../../theme/assets/images/stadium.jpg) no-repeat center center;
+  background-size: cover;
+  filter: blur(10px);
+  box-shadow: 0px 10px 10px rgba(255, 255, 255, 0.3);
+}
+
+.form {
+  z-index: 1;
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 40px;
+  width: 400px;
+  border-radius: 3px;
+}
+
+.logo {
+  width: 64px;
+  margin-bottom: 40px;
+}

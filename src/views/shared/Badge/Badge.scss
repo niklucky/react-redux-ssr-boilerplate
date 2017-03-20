@@ -1,0 +1,23 @@
+.container {
+  display: inline-block;
+  border-radius: 3px;
+  font-size: 12px;
+  padding: 5px 8px;
+  font-weight: 300;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.2)
+}
+
+.gray {
+  @extend .container;
+  background-color: #f2f2f2
+}
+.red {
+  @extend .container;
+  color: white;
+  background-color: #FF1744
+}
+.blue {
+  @extend .container;
+  color: white;
+  background-color: #CDDC39
+}

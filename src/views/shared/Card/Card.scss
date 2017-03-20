@@ -1,0 +1,77 @@
+.container {
+  display: inline-block;
+  vertical-align: top;
+  min-width: 150px;
+}
+.lg {
+  @extend .container;
+  width: 50%
+}
+.md {
+  @extend .container;
+  width: 33%
+}
+.sm {
+  @extend .container;
+  width: 20%
+}
+.xs {
+  @extend .container;
+  width: 12.5%
+}
+
+.card {
+  position: relative;
+  margin: 0 20px 20px 0;
+  padding-bottom: 20px;
+  background: white;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+  min-height: 280px;
+}
+
+.active:hover {
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.cover {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 150px;
+  overflow: hidden;
+}
+
+.coverBg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  min-height: 150px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  filter: blur(30px);
+  overflow: hidden;
+  z-index: 0;
+}
+
+.coverIcon {
+  display: block;
+  position: relative;
+  z-index: 1;
+  border-radius: 50%;
+  overflow: hidden;
+}
+.coverTitle {
+  color: white;
+  z-index: 1;
+  margin-top: 10px;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+.title {
+  font-weight: 300;
+  margin-bottom: 10px;
+}
