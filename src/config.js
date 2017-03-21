@@ -27,7 +27,7 @@ module.exports = {
         { property: 'og:title', content: 'React + Redux + SSR boilerplate' },
         { property: 'og:description', content: 'All the modern best practices in one example.' },
         { property: 'og:card', content: 'summary' },
-        { property: 'og:site', content: 'https://highglossy.com' },
+        { property: 'og:site', content: 'https://github.com/niklucky' },
         { property: 'og:creator', content: '@niklucky' },
         { property: 'og:image:width', content: '200' },
         { property: 'og:image:height', content: '200' }

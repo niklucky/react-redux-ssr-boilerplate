@@ -1,25 +1,28 @@
 {
-  "name": "cska-website",
+  "name": "react-redux-ssr-boilerplate",
   "version": "0.1.0",
-  "description": "CSKA website",
+  "description": "React + Redux + SASS + SSR boilerplate",
   "main": "index.js",
   "scripts": {
-    "dev": "node webpack/webpack-dev-server.js",
+    "prestart": "webpack --config ./webpack/webpack.config.dev.js",
     "start": "node bin/server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/Highglossy/cska-website.git"
+    "url": "git+ssh://git@github.com/niklucky/react-redux-ssr-boilerplate"
   },
   "keywords": [
-    "cska",
+    "react",
+    "redux",
+    "boilerplate",
     "website",
-    "ssr"
+    "ssr",
+    "server-side-rendering"
   ],
   "author": "Nikita Zhuravlev <iam@niklucky.com>",
-  "license": "ISC",
-  "homepage": "https://bitbucket.org/Highglossy/cska-website#readme",
+  "license": "GNU",
+  "homepage": "https://github.com/niklucky/react-redux-ssr-boilerplate",
   "devDependencies": {
     "autoprefixer": "^6.7.7",
     "autoprefixer-loader": "^3.2.0",
