@@ -9,7 +9,7 @@ export default function createAppStore(history, client, reduxState, onSuccess) {
   let composed;
 
   if (__DEVELOPMENT__ && __CLIENT__ && __DEVTOOLS__) {
-    const createLogger = require('redux-logger');
+    const createLogger = require('redux-logger').default;
     const logger = createLogger({
       predicate: () => true,
       collapsed: true,
