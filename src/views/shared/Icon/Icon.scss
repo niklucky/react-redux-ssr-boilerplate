@@ -1,0 +1,15 @@
+.icon {
+  cursor: pointer;
+  display: inline-block;
+  padding: 0;
+  svg {
+    display: block;
+  }
+  &:hover {
+    svg {
+      path {
+        opacity: 0.8;
+      }
+    }
+  }
+}

@@ -1,0 +1,122 @@
+@import "../../../theme/variables";
+
+.container {
+  animation: popout $timing $easing;
+
+}
+
+.background {
+  z-index: 0;
+  position: fixed;
+  top: -20px;
+  left: -20px;
+  right: 0;
+  bottom: 0;
+  width: 110%;
+  height: 110%;
+//  background: white url(../../../theme/assets/images/stadium.jpg) no-repeat center center;
+  background-size: cover;
+  filter: blur(10px);
+  box-shadow: 0px 10px 10px rgba(255, 255, 255, 0.3);
+}
+
+.form {
+  z-index: 1;
+  display: inline-block;
+  background-color: rgba(255, 255, 255, 1);
+  padding: 0 40px 60px 40px;
+  min-width: 480px;
+  max-width: 640px;
+  @media (max-width:360px) {
+  max-width: 300px;
+  min-width: 0;
+
+  }
+  @media (min-width:440px) {
+  padding: 40px 20px 60px;
+  }
+  @media (max-width:$sm) {
+  padding: 40px 0 60px;
+  }
+  border-radius: 3px;
+  h1 {
+  margin: 20px 0;
+  @media (min-width:320px) {
+  font-size:1.8em;
+  margin: 20px 0 80px;
+
+  }
+  @media (min-width:360px) {
+  font-size:2em;
+  margin: 40px 0 80px;
+  max-width:340px;
+
+  }
+  @media (min-width:$sm) {
+  font-size: 3em;
+  margin: 60px 0 80px;
+  max-width:100%;
+  
+  }
+  }
+  input {
+  @media (max-width:$sm) {
+  max-width: 300px;
+  }
+  max-width: 400px;
+  
+  
+  }
+  .login {
+  margin: 80px 0 20px;
+  }
+    @media (max-width:$sm) {
+      margin: 0 0 10px;
+    }
+  }
+  a{
+  @media (max-width:360px) {
+  font-size: .7em;
+  }
+  @media (max-width:414px) {
+  font-size: .8em;
+  }
+  }
+  .forgotPass a {
+  color:$colorLightGrey;
+  font-size: .8em;
+  font-style: italic;
+  border-bottom: 1px $colorLightGrey solid;
+  padding: 2px;
+  text-decoration: none;
+  &:hover {
+    color:$colorRed;
+    border-color: $colorRed;
+
+  }
+}
+
+
+
+.logo {
+  margin-bottom: 0px;
+}
+
+.error {
+  display: block;
+  width: auto;
+  max-width: 400px;
+  padding: 20px;
+  background: $colorRed;
+  margin: 20px 0 40px;
+  text-align: center;
+  transform-origin: left bottom;
+  transform: skewX($skewDeg);
+  color: white;
+  transition: all $timing $easing;
+  @media (max-width:$sm) {
+  max-width: 300px;
+  
+  }
+}
+

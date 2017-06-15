@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom/server';
 import serialize from 'serialize-javascript';
 import Helmet from 'react-helmet';
@@ -17,7 +18,6 @@ class Html extends Component {
     const {assets, component, store} = this.props;
     const content = component ? ReactDOM.renderToString(component) : '';
     const head = Helmet.rewind();
-
     return (
       <html lang="en-US">
         <head>
@@ -28,7 +28,10 @@ class Html extends Component {
           {head.script.toComponent()}
 
           <link rel="shortcut icon" href="/favicon.ico" />
-          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+          <meta httpEquiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+          {/* <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,900&amp;subset=cyrillic" rel="stylesheet" /> */}
+          <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700,700i&amp;subset=cyrillic" rel="stylesheet" />
           {assets.styles && Object.keys(assets.styles).map((style, key) =>
             <link
               href={assets.styles[style]} key={key} media="screen, projection"

@@ -25,7 +25,7 @@ export default function apiClientMiddleware(client) {
       next({ ...rest, type: REQUEST });
 
       const token = getState().auth.accessToken;
-      if (token !== undefined) {
+      if (typeof token === 'string') {
         client.setHeader('Authorization', token);
       }
       const actionPromise = promise(client);

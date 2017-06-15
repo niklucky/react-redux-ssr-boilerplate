@@ -1,0 +1,80 @@
+@import '../../../theme/variables';
+
+.container {
+}
+
+.tab {
+  display: none;
+  background: white;
+}
+
+.tabActive {
+  @extend .tab;
+  display: block;
+}
+
+.tabHeader {
+  min-width: 100px;
+  border-bottom: 2px solid white;
+  cursor: pointer;
+  text-align: center;
+  font-size: 1.4em;
+  padding: 10px;
+  color: $colorBlue;
+  margin-bottom: 60px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-style: italic;
+  transform: skewX($skewDeg);
+  border-bottom: 2px solid $colorRed;
+  &:hover {
+    color: $colorRed;
+
+  }
+  &:before{
+    content: '';
+    pointer-events: none;
+    position: fixed;
+    top:49px;
+    left: 100%;
+    border-bottom: 2px solid $colorRed;
+    width:100%;
+    height: 2px;
+    z-index: 1;
+    display:none;
+    @media(min-width: 360px) {
+    display:block;
+    }
+  }
+  &:after{
+    content: '';
+    pointer-events: none;
+    position: fixed;
+    top:49px;
+    right: 300%;
+    border-bottom: 2px solid $colorRed;
+    width:100%;
+    height: 2px;
+    z-index: 1;
+    display:none;
+    @media(min-width: 360px) {
+    display:block;
+    }
+  }
+}
+.tabHeaderActive {
+  @extend .tabHeader;
+  cursor: default;
+  background: white;
+  border-top: 2px solid $colorRed;
+  border-left: 2px solid $colorRed;
+  border-right: 2px solid $colorRed;
+  border-bottom: 2px solid white;
+  position: relative;
+  z-index: 5;
+    &:hover {
+    color: $colorBlue;
+    
+  }
+  
+}

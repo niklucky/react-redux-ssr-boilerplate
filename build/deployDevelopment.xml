@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="deploy-development" default="start">
+    <property environment="env"/>
+
+    <target name="start" depends="info,npm-install,copy-configs,npm-build,archiveDevelop,copy,unzip,cleanInstallFiles,npm-deploy,reCreatelink,restart"/>
+
+    <target name="info">
+        <echo message="Jenkins workspace: ${env.WORKSPACE}"/>
+        <echo message="Job directory: ${env.WORKSPACE}../../jobs/${env.JOB_NAME}"/>
+        <echo message="Build data: ${env.WORKSPACE}../../jobs/${env.JOB_NAME}/build/${env.BUILD_ID}"/>
+        <echo message="basedir: ${basedir}"/>
+    </target>
+
+    <target name="npm-install" description="Node packages install">
+        <exec executable="npm" failonerror="true" taskname="npm">
+            <arg line="install"/>
+        </exec>
+    </target>
+
+    <target name="copy-configs" description="Copiyng configs">
+      <copy file="${basedir}/../../../../configs/cska/web/dev/config.local.js" tofile="${basedir}/../src/config.local.js" overwrite="true" />
+    </target>
+
+    <target name="npm-build" description="npm build script">
+        <exec executable="npm" failonerror="true" taskname="npm">
+            <arg value="run"/>
+            <arg value="build"/>
+        </exec>
+    </target>
+
+    <target name="npm-test" description="npm build script">
+        <exec executable="sudo" failonerror="true" taskname="service">
+            <arg value="systemctl"/>
+            <arg value="start"/>
+            <arg value="football-api-test"/>
+        </exec>
+        <exec executable="npm" failonerror="true" taskname="npm">
+            <arg value="test"/>
+        </exec>
+        <exec executable="sudo" failonerror="true" taskname="service">
+            <arg value="systemctl"/>
+            <arg value="stop"/>
+            <arg value="football-api-test"/>
+        </exec>
+    </target>
+
+    <target name="archiveDevelop" description="Archive project for Dev deploy">
+        <antcall target="archive">
+            <param name="archiveName" value="deployDevelop"/>
+        </antcall>
+    </target>
+
+    <target name="archive" description="Archive ${archiveName}">
+        <delete file="${env.WORKSPACE}/build/${archiveName}.zip"/>
+
+        <exec executable="zip" taskname="archive" failonerror="true" dir="${env.WORKSPACE}">
+            <arg value="-r"/>
+            <arg value="build/${archiveName}.zip"/>
+            <arg value="bin/"/>
+            <arg value=".babelrc"/>
+            <arg value="src/"/>
+            <arg value="public/"/>
+            <arg value="webpack/webpack-isomorphic-tools.js"/>
+            <arg value="webpack-assets.json"/>
+            <arg value="package.json"/>
+        </exec>
+    </target>
+
+    <target name="copy" description="clear destination directory">
+        <sshexec host="${host}" username="${user}" keyfile="${sshKey}" trust="true" command="rm -rf ${remoteDir}"/>
+        <sshexec host="${host}" username="${user}" keyfile="${sshKey}" trust="true" command="mkdir ${remoteDir}"/>
+
+        <scp file="${basedir}/deployDevelop.zip" todir="${user}@${host}:${remoteDir}/" keyfile="${sshKey}" trust="true"/>
+    </target>
+
+    <target name="unzip" description="unzip archive with develop code">
+        <sshexec host="${host}" username="${user}" keyfile="${sshKey}"  trust="true" command="unzip ${remoteDir}/deployDevelop.zip -d ${remoteDir}/"/>
+    </target>
+
+    <target name="cleanInstallFiles" description="clean files used to deploy Develop files">
+        <sshexec host="${host}" username="${user}" keyfile="${sshKey}" trust="true" command="rm ${remoteDir}/deployDevelop.zip"/>
+    </target>
+
+    <target name="npm-deploy" description="Node packages install">
+      <sshexec host="${host}" username="${user}" keyfile="${sshKey}"  trust="true" command="cd ${remoteDir} &amp;&amp; npm install --only=production"/>
+    </target>
+
+    <target name="reCreatelink" description="Re-create dev link">
+        <sshexec host="${host}" username="${user}" keyfile="${sshKey}" trust="true" command="unlink ${link}"/>
+        <sshexec host="${host}" username="${user}" keyfile="${sshKey}" trust="true" command="ln -s ${remoteDir} ${link}"/>
+    </target>
+
+    <target name="restart" description="Restart service">
+        <sshexec
+            host="${host}"
+            username="${user}"
+            keyfile="${sshKey}"
+            trust="true"
+            command="
+            sudo systemctl daemon-reload &amp;&amp;
+            sudo systemctl restart cska-web-dev
+            "/>
+    </target>
+</project>

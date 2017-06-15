@@ -1,44 +1,39 @@
-import React, { PropTypes } from 'react';
-
-import Icon from '../Icon';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import styles from './Button.scss';
 
-const Button = (props) => {
-  const className = (props.className) ? styles[props.className] : styles.default;
-  let icon = null;
-  const style = {};
-  if (props.icon) {
-    icon = (
-      <div className={styles.icon}>
-        <Icon name={props.icon} size={24} color="#FFFFFF" />
+
+class Button extends Component {
+  render() {
+    const className = [styles.button, styles[this.props.type]].join(' ');
+    return (
+      <div
+        className={className}
+        style={this.props.style}
+        onClick={this.props.onClick}
+      >
+        {this.props.children || this.props.value}
       </div>
     );
-    style.paddingLeft = 10;
   }
-  return (
-    <div className={styles.container} style={props.style}>
-      <button className={className} onClick={props.onClick} style={style}>
-        {icon}
-        {props.value}
-      </button>
-    </div>
-  );
+}
+
+Button.propTypes = {
+  children: PropTypes.any,
+  type: PropTypes.string,
+  value: PropTypes.oneOfType([
+    PropTypes.string, PropTypes.number
+  ]),
+  onClick: PropTypes.func.isRequired,
+  style: PropTypes.object
 };
 
 Button.defaultProps = {
-  className: null,
-  value: 'OK',
-  icon: null,
+  children: null,
+  type: 'button',
   style: null,
-};
-
-Button.propTypes = {
-  className: PropTypes.any,
-  value: PropTypes.string,
-  icon: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
-  style: PropTypes.object,
+  value: 'OK'
 };
 
 export default Button;

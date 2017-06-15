@@ -4,10 +4,8 @@ var WebpackIsomorphicToolsPlugin = require('webpack-isomorphic-tools/plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var autoprefixer = require('autoprefixer');
 
-var { devServer } = require('../src/config');
-
-var staticPath = resolve(__dirname, '../static');
-var distPath = resolve(__dirname, '../static/dist');
+var staticPath = resolve(__dirname, '../public');
+var distPath = resolve(__dirname, '../public/dist');
 
 var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'));
 var extractCSS = new ExtractTextPlugin({ filename: '[name]-[chunkhash].css', allChunks: true });
@@ -44,19 +42,26 @@ module.exports = {
      },
      {
         test: /\.js$/,
-        loader: 'babel-loader',    
+        loader: 'babel-loader',
+        options: {
+            presets: [ 'react-hmre' ]
+        },
         include: [
           resolve(__dirname, "../src")
         ],
-        query: {
-            presets: [ 'react-hmre' ]
-        }        
       },
       {
         test: /\.scss$/,
         use: extractCSS.extract({
           fallback: 'style-loader',
-          loader: 'css-loader?modules&importLoaders=1&localIdentName=[name][local]_[hash:base64:5]!postcss-loader!sass-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: { modules: true, importLoaders: 1, localIdentName: '[name][local]_[hash:base64:5]' },
+            },
+            { loader: 'postcss-loader' },
+            { loader: 'sass-loader' },
+          ]
         }),
       },
       {
@@ -70,10 +75,22 @@ module.exports = {
           }
         ]
       },
-      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url-loader?limit=10000&mimetype=image/svg+xml" },
+      {
+        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+        use: [
+          {
+            loader: 'url-loader', options: { limit: 10000, mimetype: 'image/svg+xml' }
+          },
+        ]
+      },
       {
         test: webpackIsomorphicToolsPlugin.regular_expression('images'),
-        use: 'url-loader?limit=10240'
+        use: [
+          {
+            loader: 'url-loader',
+            options: { limit: 10240 }
+          }
+        ]
       }
     ]
   },

@@ -6,7 +6,8 @@ import { Provider } from 'react-redux';
 import { browserHistory } from 'react-router';
 import { syncHistoryWithStore } from 'react-router-redux';
 
-import Root from './app/Root';
+import App from './app/App';
+
 import createAppStore from './redux/create';
 import ApiClient from './helpers/ApiClient';
 import getRoutes from './routes';
@@ -15,17 +16,17 @@ const client = new ApiClient();
 
 const render = () => {
   createAppStore(browserHistory, client, window.__data, (store) => {
-    console.log('store', store);
+    // console.log('store', store);
     const history = syncHistoryWithStore(browserHistory, store);
 
     const mountPoint = document.getElementById('content');
 
     ReactDOM.render(
-      <Root>
-        <Provider store={store}>
+      <Provider store={store}>
+        <App>
           { getRoutes(history, store) }
-        </Provider>
-      </Root>,
+        </App>
+      </Provider>,
       mountPoint
     );
   });
@@ -34,7 +35,7 @@ const render = () => {
 render();
 
 if (__DEVELOPMENT__ && module.hot) {
-  module.hot.accept('./app/Root', () => {
+  module.hot.accept('./app/App', () => {
     render();
   });
 }
