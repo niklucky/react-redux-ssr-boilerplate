@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import styles from './Table.scss';
 
 class TRow extends Component {
@@ -14,7 +13,8 @@ class TRow extends Component {
       cl.push(styles.active);
     }
     return cl.join(' ');
-  }
+  };
+
   render() {
     return (
       <div className={this.getClassName()} onClick={this.props.onClick}>

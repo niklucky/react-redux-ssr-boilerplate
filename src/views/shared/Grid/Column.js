@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import styles from './Grid.scss';
 
 class Column extends Component {
@@ -23,7 +22,7 @@ class Column extends Component {
       classNames.push(styles[`lg-${lg}`]);
     }
     return classNames.join(' ');
-  }
+  };
 
   render() {
     const styl = {};

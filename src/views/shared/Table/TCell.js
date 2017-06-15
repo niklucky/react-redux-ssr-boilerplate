@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import styles from './Table.scss';
 
 class TCell extends Component {
@@ -11,7 +10,8 @@ class TCell extends Component {
       cl.push(styles[type]);
     }
     return cl.join(' ');
-  }
+  };
+
   render() {
     const className = this.getClassName();
     const style = this.props.style;

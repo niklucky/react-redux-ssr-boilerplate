@@ -9,17 +9,19 @@ class Tabs extends Component {
       active: props.active
     };
   }
-  componentWillReceiveProps = (props) => {
+  componentWillReceiveProps(props) {
     if (props.active !== this.state.active) {
       this.setState({ active: props.active });
     }
   }
+
   handleSelectTab = (tabId) => {
     if (this.props.onSelectTab) {
       return this.props.onSelectTab(tabId);
     }
     return this.setState({ active: tabId });
-  }
+  };
+
   renderHeader = () => {
     if (this.props.header === null) {
       return null;
@@ -38,7 +40,8 @@ class Tabs extends Component {
         </div>
       );
     });
-  }
+  };
+
   renderTabs = () => {
     if (this.props.tabs === null) {
       return null;
@@ -52,7 +55,8 @@ class Tabs extends Component {
         </div>
       );
     });
-  }
+  };
+
   render() {
     return (
       <div className={styles.container}>

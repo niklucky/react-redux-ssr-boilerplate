@@ -1,7 +1,7 @@
 {
-  "name": "@@PROJECT_NAME",
+  "name": "Boilerplate",
   "version": "0.1.0",
-  "description": "@@PROJECT_DESCRIPTION",
+  "description": "Boilerplate",
   "main": "index.js",
   "scripts": {
     "dev": "node bin/server",
@@ -13,16 +13,16 @@
   },
   "repository": {
     "type": "git",
-    "url": "@@PROJECT_GIT_URL"
+    "url": "git@github.com:niklucky/react-redux-ssr-boilerplate.git"
   },
   "keywords": [
-    "@@PROJECT_KEYWORD",
+    "Boilerplate",
     "website",
     "ssr"
   ],
   "author": "Nikita Zhuravlev <iam@niklucky.com>",
   "license": "ISC",
-  "homepage": "@@PROJECT_README",
+  "homepage": "https://github.com/niklucky/react-redux-ssr-boilerplate",
   "devDependencies": {
     "autoprefixer": "^6.7.7",
     "autoprefixer-loader": "^3.2.0",

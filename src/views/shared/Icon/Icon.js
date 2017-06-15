@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import * as icons from '../../components/Icons';
 import styles from './Icon.scss';
 

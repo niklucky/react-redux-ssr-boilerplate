@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-
 import InputLabel from '../InputLabel';
-
 import styles from './Input.scss';
 
 class Input extends Component {
@@ -12,11 +10,13 @@ class Input extends Component {
       value: props.value
     };
   }
+
   handleChange = (e) => {
     const value = e.target.value;
     this.setState({ value });
     this.props.onChange(value);
-  }
+  };
+
   handleKeyPress = (e) => {
     if (e.keyCode === 27) {
       this.handleBlur();
@@ -26,17 +26,20 @@ class Input extends Component {
         this.props.onSubmit(this.state.value);
       }
     }
-  }
+  };
+
   handleBlur = () => {
     if (this.props.onBlur) {
       this.props.onBlur(this.state.value);
     }
-  }
+  };
+
   handleFocus = () => {
     if (this.props.onFocus) {
       this.props.onFocus(this.state.value);
     }
-  }
+  };
+
   render() {
     let style = {};
     if (this.props.style) {
