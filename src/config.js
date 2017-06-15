@@ -7,7 +7,7 @@ const config = {
   },
   server: { // ssr server settings
     host: 'localhost',
-    port: 3300,
+    port: 8080,
     protocol: 'http'
   },
   api: {
