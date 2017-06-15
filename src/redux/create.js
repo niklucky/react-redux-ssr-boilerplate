@@ -9,7 +9,7 @@ export default function createAppStore(history, client, reduxState, onSuccess) {
   let composed;
 
   if (__DEVELOPMENT__ && __CLIENT__ && __DEVTOOLS__) {
-    const createLogger = require('redux-logger').default;
+    const createLogger = require('redux-logger');
     const logger = createLogger({
       predicate: () => true,
       collapsed: true,
@@ -30,11 +30,13 @@ export default function createAppStore(history, client, reduxState, onSuccess) {
   }
   const reducer = require('./reducers');
   const store = createStore(reducer, reduxState, composed);
-  persistStore(store, {}, () => {
-    if (onSuccess) {
-      onSuccess(store);
-    }
-  });
+  if (__CLIENT__) {
+    persistStore(store, {}, () => {
+      if (onSuccess) {
+        onSuccess(store);
+      }
+    });
+  }
   if (__DEVELOPMENT__ && module.hot) {
     module.hot.accept('./reducers', () => {
       store.replaceReducer(require('./reducers').default);

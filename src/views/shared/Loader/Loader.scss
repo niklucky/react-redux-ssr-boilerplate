@@ -1,0 +1,63 @@
+@import '../../../theme/variables';
+
+.loader {
+  position: absolute;
+  left: calc(50% - 30px);
+  top:calc(50% - 30px);
+  z-index:666;
+  border: 2px solid  transparent; /* Light grey */
+  border-top: 2px solid $colorBlue; /* Blue */
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spinGrey 1.5s reverse infinite;
+}
+.loaderInner {
+  position: absolute;
+  left: calc(50% - 20px);
+  top:calc(50% - 20px);
+  z-index:666;
+  border: 2px solid  transparent; /* Light grey */
+  border-top: 2px solid $colorRed; /* Blue */
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spinInner 1.5s reverse infinite ;
+}
+.loaderGrey {
+  position: absolute;
+  left: calc(50% - 40px);
+  top:calc(50% - 40px);
+  z-index:666;
+  border: 2px solid  transparent; /* Light grey */
+  border-top: 2px solid $colorRed;; /* Blue */
+  border-radius: 50%;
+  width: 80px;
+  height: 80px;
+  animation: spinGrey 1.5s linear infinite ;
+}
+
+.loaderScale {
+  position: absolute;
+  left: calc(50% - 8px);
+  top:calc(50% - 8px);
+  z-index:666;
+  border: 2px solid transparent; /* Blue */
+  border-top: 2px solid $colorBlue; /* Blue */
+  border-radius: 50%;
+  width: 16px;
+  height: 16px;
+  animation: spinInner .5s reverse infinite ;
+}
+
+@keyframes spinInner {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+
+@keyframes spinGrey {
+  0% { transform: rotate(-360deg); }
+  100% { transform: rotate(0deg); }
+}
+

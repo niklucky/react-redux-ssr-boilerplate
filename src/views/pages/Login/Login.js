@@ -1,14 +1,9 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
-
 import { login } from '../../../redux/reducers/auth';
-
-import Input from '../../shared/Input';
-import Button from '../../shared/Button';
-
+import { Input, Button } from '../../shared';
 import styles from './Login.scss';
-// import logo from '../../../theme/assets/images/logo.png';
 
 class Login extends Component {
   constructor(props) {
@@ -16,25 +11,25 @@ class Login extends Component {
     this.state = { username: '', password: '' };
   }
 
-  componentWillMount = () => {
+  componentWillMount() {
     if (this.props.auth.userId !== null) {
       this.props.pushState('/');
     }
   }
+
   handleChange = (name, value) => {
     this.setState({...this.state, [name]: value});
-  }
+  };
 
   handleSubmit = () => {
     this.props.login(this.state);
-  }
+  };
 
   render() {
     return (
       <div className={styles.container}>
         <div className={styles.background} />
         <div className={styles.form}>
-          {/* <img src={logo} alt="Football" className={styles.logo} />*/}
           <Input label="Login" value={this.state.username} onChange={value => this.handleChange('username', value)} maxLength={32} />
           <Input label="Password" type="password" value={this.state.password} onChange={value => this.handleChange('password', value)} maxLength={32} />
 
@@ -44,6 +39,7 @@ class Login extends Component {
     );
   }
 }
+
 Login.propTypes = {
   auth: PropTypes.object.isRequired,
   login: PropTypes.func.isRequired,

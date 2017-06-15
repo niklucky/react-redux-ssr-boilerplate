@@ -6,37 +6,39 @@ var autoprefixer = require('autoprefixer');
 
 var { devServer } = require('../src/config');
 
-var staticPath = resolve(__dirname, '../static');
-var distPath = resolve(__dirname, '../static/dist');
+var staticPath = resolve(__dirname, '../public');
+var distPath = resolve(__dirname, '../public/dist');
 
 var webpackIsomorphicToolsPlugin = new WebpackIsomorphicToolsPlugin(require('./webpack-isomorphic-tools'));
 var extractCSS = new ExtractTextPlugin({ filename: '[name]-[chunkhash].css', allChunks: true });
 
 module.exports = {
-  devtool: 'inline-source-map',
+  devtool: false,
   context: resolve(__dirname, '..'),
   entry: [
-    'webpack-hot-middleware/client',
     './src/client.js'
   ],
   output: {
     path: distPath,
-    publicPath: '/',
+    publicPath: '/dist/',
     pathinfo: true,
-    filename: 'bundle-[hash].js'
+    filename: 'bundle-[hash].js',
+    sourceMapFilename: '[name].map'
   },
   resolve: {
     modules: [
       "node_modules",
-      path.resolve(__dirname, "src")
+      resolve(__dirname, "src")
     ],
-    extensions: ['.js', '.scss', '.css']
+    extensions: ['.js', '.scss', '.css', '.eot']
   },
   module: {
     rules: [
      {
        test: /\.js?$/,
-       loader: 'eslint-loader',
+       use: [
+         { loader: 'eslint-loader' }
+       ],
        include: [
          resolve(__dirname, "../src"),
        ],
@@ -44,13 +46,12 @@ module.exports = {
      },
      {
         test: /\.js$/,
-        loader: 'babel-loader',    
+        use: {
+          loader: 'babel-loader',
+        },
         include: [
           resolve(__dirname, "../src")
         ],
-        query: {
-            presets: [ 'react-hmre' ]
-        }        
       },
       {
         test: /\.scss$/,
@@ -61,7 +62,6 @@ module.exports = {
       },
       {
         test: webpackIsomorphicToolsPlugin.regular_expression('fonts'),
-        include: resolve(__dirname, "src"),
         use: [
           {
             loader : 'url-loader',
@@ -71,26 +71,36 @@ module.exports = {
           }
         ]
       },
-      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: "url-loader?limit=10000&mimetype=image/svg+xml" },
+      { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, use: "url-loader?limit=10000&mimetype=image/svg+xml" },
       {
         test: webpackIsomorphicToolsPlugin.regular_expression('images'),
-        loader: 'url-loader?limit=10240'
+        use: 'url-loader?limit=10240'
       }
     ]
   },
   plugins: [
-    new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new webpack.LoaderOptionsPlugin({ options: { postcss: [ autoprefixer ] } }),
+    new webpack.LoaderOptionsPlugin({ minimize: true, debug: false, options: { postcss: [ autoprefixer ] } }),
+    new webpack.optimize.UglifyJsPlugin({
+        beautify: false,
+        mangle: {
+            screw_ie8: true,
+            keep_fnames: true
+        },
+        compress: {
+            screw_ie8: true
+        },
+        comments: false
+    }),
     webpackIsomorphicToolsPlugin,
     extractCSS,
     new webpack.DefinePlugin({
-      __DEVELOPMENT__: true,
+      __DEVELOPMENT__: false,
       __CLIENT__: true,
       __SERVER__: false,
-      __DEVTOOLS__: true,
+      __DEVTOOLS__: false,
       'process.env': {
-        NODE_ENV: JSON.stringify('development'),
+        NODE_ENV: JSON.stringify('production'),
         WEBPACK: true
       }
     })

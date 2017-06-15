@@ -1,19 +1,46 @@
+@import "../../../theme/variables";
+
+
 .container {
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   position: relative;
 }
 
 .input {
-  font-size: 16px;
+  font-size: 1.5em;
   background: transparent;
   border: 0;
-  border-bottom: 1px solid #e2e2e2;
+  border-radius: 0;
+  border-bottom: 1px solid $colorLightGrey;
   outline: none;;
-  color: #666;
+  color: $colorBlue;
   font-weight: 300;
-  padding: 5px 0;
+  padding: 10px 0 5px;
   width: 100%;
+  -webkit-appearance:none;  
+  -webkit-border-radius:0px;
+
   &:focus {
-    border-bottom: 1px solid #4FC3F7;
+    border-bottom: 1px solid  $colorBlue;
   }
+}
+
+.errorMsg {
+  animation: popout $timing $easing;
+  color: $colorRed;
+  border: 2px solid $colorRed;  
+  transform-origin: left bottom;
+  transform: skewX($skewDeg);
+  padding: 5px;
+  text-transform: uppercase;
+  margin-top: 20px;
+  font-weight: 700;
+  font-size: .7em;
+  width:auto;
+  display: inline-block;
+}
+
+.label {
+  padding-bottom: 10px;
+  font-size: .7em;
 }

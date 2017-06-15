@@ -1,7 +1,6 @@
-import React, { Component, PropTypes } from 'react';
-
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import InputLabel from '../InputLabel';
-
 import styles from './Input.scss';
 
 class Input extends Component {
@@ -11,11 +10,13 @@ class Input extends Component {
       value: props.value
     };
   }
+
   handleChange = (e) => {
     const value = e.target.value;
     this.setState({ value });
     this.props.onChange(value);
-  }
+  };
+
   handleKeyPress = (e) => {
     if (e.keyCode === 27) {
       this.handleBlur();
@@ -25,20 +26,31 @@ class Input extends Component {
         this.props.onSubmit(this.state.value);
       }
     }
-  }
+  };
+
   handleBlur = () => {
     if (this.props.onBlur) {
       this.props.onBlur(this.state.value);
     }
-  }
+  };
+
+  handleFocus = () => {
+    if (this.props.onFocus) {
+      this.props.onFocus(this.state.value);
+    }
+  };
+
   render() {
-    const style = {};
+    let style = {};
+    if (this.props.style) {
+      style = this.props.style;
+    }
     if (this.props.size) {
       style.width = this.props.size;
     }
     return (
       <div className={styles.container}>
-        <InputLabel label={this.props.label} />
+        <InputLabel className={styles.label} label={this.props.label} />
         <input
           className={styles.input}
           type={this.props.type}
@@ -46,8 +58,12 @@ class Input extends Component {
           onChange={this.handleChange}
           onKeyDown={this.handleKeyPress}
           onBlur={this.handleBlur}
+          onFocus={this.handleFocus}
           style={style}
         />
+        {this.props.errorMessage &&
+          <div className={styles.errorMsg}>{this.props.errorMessage}</div>
+        }
       </div>
     );
   }
@@ -56,7 +72,11 @@ Input.defaultProps = {
   type: 'text',
   size: 'md',
   onSubmit: null,
-  onBlur: null
+  onBlur: null,
+  onFocus: null,
+  style: null,
+  errorMessage: ''
+
 };
 
 Input.propTypes = {
@@ -71,6 +91,9 @@ Input.propTypes = {
   onChange: PropTypes.func.isRequired,
   onSubmit: PropTypes.func,
   onBlur: PropTypes.func,
+  onFocus: PropTypes.func,
+  style: PropTypes.object,
+  errorMessage: PropTypes.string
 };
 
 export default Input;

@@ -1,0 +1,16 @@
+[Unit]
+Description=Website
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/node my-project/web/dev/bin/server.js
+Restart=always
+User=dev
+Group=dev
+Environment=PATH=/usr/bin:/usr/local/bin
+Environment=NODE_ENV=production
+Environment=PORT=3300
+WorkingDirectory=/var/www
+
+[Install]
+WantedBy=multi-user.target

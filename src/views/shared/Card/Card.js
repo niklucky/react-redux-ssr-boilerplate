@@ -1,5 +1,5 @@
-import React, { Component, PropTypes } from 'react';
-
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styles from './Card.scss';
 
 class Card extends Component {
@@ -13,28 +13,32 @@ class Card extends Component {
       cl.push(styles.active);
     }
     return cl.join(' ');
-  }
+  };
+
   renderCoverBg = () => {
     const { bg } = this.props;
     if (bg) {
       return (<div className={styles.coverBg} style={{ backgroundImage: `url(${bg})` }} />);
     }
     return null;
-  }
+  };
+
   renderCoverImage = () => {
     const { image } = this.props;
     if (image) {
       return (<div className={styles.coverImage} style={{ backgroundImage: image }} />);
     }
     return null;
-  }
+  };
+
   renderCoverIcon = () => {
     const { icon } = this.props;
     if (icon) {
       return (<div className={styles.coverIcon}>{icon}</div>);
     }
     return null;
-  }
+  };
+
   renderCoverTitle = () => {
     const { coverTitle } = this.props;
     if (coverTitle === null) {
@@ -44,7 +48,8 @@ class Card extends Component {
       return (<div className={styles.coverTitle}>{coverTitle}</div>);
     }
     return coverTitle;
-  }
+  };
+
   renderCover = () => {
     const { image, bg, icon } = this.props;
     if (bg === null && image === null && icon === null) {
@@ -58,7 +63,8 @@ class Card extends Component {
         {this.renderCoverTitle()}
       </div>
     );
-  }
+  };
+
   render() {
     const { title, children, size, onClick } = this.props;
     return (

@@ -1,0 +1,46 @@
+
+// ***************************COLORS****************************
+
+$colorBlue: #143d8d;
+$colorLightBlue:#b8c4dd;
+$colorRed: #e31937;
+$colorGrey: #606060;
+$colorLightGrey: #b4b4b4;
+$colorGold:#85754d;
+
+// ***************************STYLING****************************
+
+$textShadow: 1px 1px 1px #606060;
+$skewDeg: -9Deg;
+$timing: .3s;
+$easing: ease-in-out;
+$scale: scale(1.112);
+
+// ***************************BREAKPOINTS****************************
+
+$xs:400px;
+$sm:640px;
+$md:992px;
+$lg:1400px;
+
+// ***************************MIXINS****************************
+
+@mixin shadow() {
+    box-shadow: -1px 2px 10px rgba(0,0,0,0.2);
+}
+
+// ***************************MISC****************************
+
+$containerPadding: 60px 0 30px;
+
+
+// ***************************ANIMATIONS****************************
+
+@keyframes popout {
+  0% {
+    opacity:0;
+  }
+  100% {
+    opacity:1;
+  }
+}
