@@ -1,5 +1,5 @@
 import React from 'react';
-import { Router, IndexRoute, Route } from 'react-router';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import { isAuthorized, getAuthToken, isAuthLoaded, load as loadAuth } from './redux/reducers/auth';
 import { Default as DefaultLayout } from './views/layouts';
 import {
@@ -35,20 +35,20 @@ export default (history, store) => {
 
   // Please keep routes in alphabetical order
   return (
-    <Router onUpdate={() => { window.scrollTo(0, 0); }} history={history}>
-      <Route path="/" component={DefaultLayout}>
-        <IndexRoute component={Home} />
-      </Route>
-      <Route component={DefaultLayout}>
-        <Route path="forgot-password" component={ForgotPassword} />
-        <Route path="login" component={Login} />
-        <Route path="register" component={Register} />
+    <BrowserRouter>
+      <div>
+        <DefaultLayout>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/forgot-password" component={ForgotPassword} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/register" component={Register} />
+            <Route exact path="/my" component={MyAccount} requireLogin={requireLogin} />
 
-        <Route path="my" onEnter={requireLogin}>
-          <IndexRoute component={MyAccount} />
-        </Route>
-        <Route path="*" component={NotFound} status={404} />
-      </Route>
-    </Router>
+            <Route path="*" component={NotFound} status={404} />
+          </Switch>
+        </DefaultLayout>
+      </div>
+    </BrowserRouter>
   );
 };
